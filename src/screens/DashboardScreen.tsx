@@ -1,51 +1,215 @@
-﻿import React, { useState } from "react";
-import { View, Text, ScrollView, StyleSheet, SafeAreaView, Pressable } from "react-native";
+import React from "react";
+import { View, Text, ScrollView, StyleSheet, Pressable, Image, Dimensions } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function DashboardScreen() {
-  const [streak] = useState(6);
-  
+const { width } = Dimensions.get("window");
+
+export default function DashboardScreen({ navigation }: any) {
   return (
-    <SafeAreaView style={styles.safe}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.greeting}>👋 Hi, Alex!</Text>
-        <Text style={styles.sub}>Ready to move today?</Text>
-
-        <View style={styles.card}>
-          <Text style={styles.streakNum}>🔥 {streak}-day streak</Text>
-          <Text style={styles.streakText}>Keep it up!</Text>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.safe} edges={["top"]}>
+        
+        {/* Header */}
+        <View style={styles.header}>
+          <View style={styles.headerLeft}>
+            <Image source={{ uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" }} style={styles.avatar} />
+            <View>
+              <Text style={styles.greeting}>Good morning,</Text>
+              <Text style={styles.name}>Alex Rivera</Text>
+            </View>
+          </View>
+          <Pressable style={styles.iconBtn}>
+            <Ionicons name="options-outline" size={20} color="#fff" />
+          </Pressable>
         </View>
 
-        <View style={styles.row}>
-          <View style={styles.statCard}>
-            <Text style={styles.statVal}>24</Text>
-            <Text style={styles.statLabel}>Workouts</Text>
+        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+          
+          <View style={styles.titleRow}>
+            <Text style={styles.pageTitle}>Activity{"\n"}Summary</Text>
+            <View style={styles.todayPill}>
+              <Text style={styles.todayPillText}>Today</Text>
+            </View>
           </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statVal}>412</Text>
-            <Text style={styles.statLabel}>Minutes</Text>
-          </View>
-        </View>
 
-        <Pressable style={styles.bigBtn}>
-          <Text style={styles.bigBtnText}>▶ Start Workout</Text>
+          {/* TOP SECTION: Hero Image & Ring */}
+          <View style={styles.heroRow}>
+            {/* Left Hero Card (Gym Photo + Graph) */}
+            <View style={styles.heroImageCard}>
+              <Image 
+                source={{ uri: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=600&auto=format&fit=crop" }} 
+                style={styles.heroImage} 
+              />
+              {/* Overlay Graph */}
+              <View style={styles.miniGraphContainer}>
+                <View style={styles.graphLine} />
+                <Text style={styles.graphText}>124 <Text style={styles.graphSub}>Reps</Text></Text>
+                <Text style={styles.graphLabel}>Avg Score: 92%</Text>
+              </View>
+            </View>
+
+            {/* Right Progress Ring */}
+            <View style={styles.heroRightCol}>
+              <View style={styles.ringCard}>
+                <View style={styles.ringOuter}>
+                  <View style={styles.ringInner}>
+                    <Ionicons name="barbell" size={24} color="#F59E0B" />
+                    <Text style={styles.ringPercent}>75%</Text>
+                  </View>
+                </View>
+                <Text style={styles.ringLabel}>Daily Goal</Text>
+              </View>
+
+              {/* Weight Stat Box */}
+              <View style={styles.statBox}>
+                <View style={styles.statHeader}>
+                  <Text style={styles.statTitle}>Weight</Text>
+                  <Ionicons name="fitness-outline" size={16} color="#64748B" />
+                </View>
+                <Text style={styles.statValue}>168.5 <Text style={styles.statUnit}>lbs</Text></Text>
+                <Text style={styles.statSub}><Text style={{color: "#10B981"}}>↓ 2.4 lbs</Text> this month</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* BOTTOM STATS ROW */}
+          <View style={styles.statsRow}>
+            <View style={styles.statBoxSmall}>
+              <View style={styles.statHeader}>
+                <Text style={styles.statTitle}>Total Reps</Text>
+                <Ionicons name="checkmark-circle-outline" size={16} color="#64748B" />
+              </View>
+              <Text style={styles.statValue}>2,450</Text>
+              <Text style={styles.statSub}>This week</Text>
+            </View>
+            
+            <View style={styles.statBoxSmall}>
+              <View style={styles.statHeader}>
+                <Text style={styles.statTitle}>Form Score</Text>
+                <Ionicons name="scan-outline" size={16} color="#64748B" />
+              </View>
+              <Text style={styles.statValue}>94%</Text>
+              <Text style={styles.statSub}>Avg. today</Text>
+            </View>
+          </View>
+
+          {/* Weekly Activity Chart Mockup */}
+          <View style={styles.weeklyCard}>
+             <View style={styles.statHeader}>
+                <Text style={styles.statTitle}>Weekly Activity</Text>
+                <Text style={styles.statSub}>Last 7 Days</Text>
+              </View>
+              <View style={styles.chartRow}>
+                {["M", "T", "W", "T", "F", "S", "S"].map((day, i) => {
+                  const isActive = i === 4;
+                  return (
+                    <View key={i} style={styles.chartCol}>
+                      <View style={[styles.chartBar, { height: isActive ? 60 : 30, backgroundColor: isActive ? "#F59E0B" : "#1E293B" }]} />
+                      <Text style={[styles.chartText, isActive && {color: "#fff"}]}>{day}</Text>
+                    </View>
+                  )
+                })}
+              </View>
+          </View>
+
+          {/* CTA Button */}
+          <Pressable 
+            style={styles.ctaBtn}
+            onPress={() => navigation.navigate("Workout", { exercise: { name: "Push-ups", color: "#F59E0B" } })}
+          >
+            <Text style={styles.ctaText}>Start Workout</Text>
+          </Pressable>
+
+        </ScrollView>
+      </SafeAreaView>
+
+      {/* CUSTOM BOTTOM NAVIGATION BAR */}
+      <View style={styles.bottomNav}>
+        <Pressable style={styles.navItem}>
+          <Ionicons name="home" size={24} color="#fff" />
         </Pressable>
-      </ScrollView>
-    </SafeAreaView>
+        <Pressable style={styles.navItem}>
+          <Ionicons name="stats-chart" size={24} color="#64748B" />
+        </Pressable>
+        <Pressable style={styles.navItemCenter}>
+          <Ionicons name="add" size={28} color="#0F172A" />
+        </Pressable>
+        <Pressable style={styles.navItem}>
+          <Ionicons name="calendar" size={24} color="#64748B" />
+        </Pressable>
+        <Pressable style={styles.navItem}>
+          <Ionicons name="person" size={24} color="#64748B" />
+        </Pressable>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "#0a0e1a" },
-  container: { padding: 20 },
-  greeting: { fontSize: 32, fontWeight: "800", color: "#fff" },
-  sub: { fontSize: 18, color: "#8892a8", marginTop: 4, marginBottom: 24 },
-  card: { backgroundColor: "#1e2740", padding: 24, borderRadius: 16, alignItems: "center", marginBottom: 20 },
-  streakNum: { fontSize: 36, fontWeight: "800", color: "#ffb84d" },
-  streakText: { fontSize: 16, color: "#fff", marginTop: 8 },
-  row: { flexDirection: "row", gap: 16, marginBottom: 32 },
-  statCard: { flex: 1, backgroundColor: "#0f1424", padding: 20, borderRadius: 16, alignItems: "center", borderWidth: 1, borderColor: "#1e2740" },
-  statVal: { fontSize: 32, fontWeight: "800", color: "#a6ffff" },
-  statLabel: { fontSize: 16, color: "#8892a8", marginTop: 4 },
-  bigBtn: { backgroundColor: "#a6ffff", padding: 20, borderRadius: 16, alignItems: "center" },
-  bigBtnText: { fontSize: 20, fontWeight: "800", color: "#0a0e1a" }
+  container: { flex: 1, backgroundColor: "#09090B" },
+  safe: { flex: 1 },
+  scrollContent: { padding: 24, paddingBottom: 100 },
+
+  // Header
+  header: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 24, marginTop: 10 },
+  headerLeft: { flexDirection: "row", alignItems: "center", gap: 12 },
+  avatar: { width: 44, height: 44, borderRadius: 22 },
+  greeting: { fontSize: 13, color: "#94A3B8", fontWeight: "500" },
+  name: { fontSize: 16, fontWeight: "700", color: "#fff", marginTop: 2 },
+  iconBtn: { width: 44, height: 44, borderRadius: 22, backgroundColor: "#18181B", alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "#27272A" },
+
+  // Title
+  titleRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end", marginTop: 24, marginBottom: 24 },
+  pageTitle: { fontSize: 36, fontWeight: "800", color: "#fff", lineHeight: 40, letterSpacing: -1 },
+  todayPill: { backgroundColor: "#18181B", paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20, borderWidth: 1, borderColor: "#27272A" },
+  todayPillText: { color: "#fff", fontSize: 13, fontWeight: "600" },
+
+  // Hero Row
+  heroRow: { flexDirection: "row", gap: 16, marginBottom: 16 },
+  
+  // Left Image Card
+  heroImageCard: { flex: 1.2, height: 220, borderRadius: 32, overflow: "hidden", justifyContent: "flex-end" },
+  heroImage: { ...StyleSheet.absoluteFillObject, opacity: 0.8 },
+  miniGraphContainer: { backgroundColor: "rgba(24, 24, 27, 0.85)", padding: 16, margin: 12, borderRadius: 20, borderWidth: 1, borderColor: "#27272A" },
+  graphLine: { height: 2, backgroundColor: "#F59E0B", width: "100%", marginBottom: 12, transform: [{ rotate: "-5deg" }] },
+  graphText: { color: "#fff", fontSize: 20, fontWeight: "800" },
+  graphSub: { fontSize: 12, color: "#94A3B8", fontWeight: "500" },
+  graphLabel: { color: "#94A3B8", fontSize: 11, marginTop: 4 },
+
+  // Right Column
+  heroRightCol: { flex: 1, gap: 16 },
+  ringCard: { flex: 1, backgroundColor: "#18181B", borderRadius: 32, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "#27272A" },
+  ringOuter: { width: 100, height: 100, borderRadius: 50, borderWidth: 8, borderColor: "#F59E0B", alignItems: "center", justifyContent: "center", shadowColor: "#F59E0B", shadowOpacity: 0.3, shadowRadius: 15, shadowOffset: { width: 0, height: 0 } },
+  ringInner: { alignItems: "center" },
+  ringPercent: { color: "#fff", fontSize: 18, fontWeight: "800", marginTop: 4 },
+  ringLabel: { color: "#94A3B8", fontSize: 12, fontWeight: "600", marginTop: 12 },
+
+  // Small Stat Box
+  statBox: { backgroundColor: "#18181B", borderRadius: 24, padding: 16, borderWidth: 1, borderColor: "#27272A", justifyContent: "center" },
+  statHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 8 },
+  statTitle: { color: "#94A3B8", fontSize: 12, fontWeight: "600" },
+  statValue: { color: "#fff", fontSize: 22, fontWeight: "800" },
+  statUnit: { fontSize: 14, color: "#64748B" },
+  statSub: { color: "#64748B", fontSize: 11, fontWeight: "500", marginTop: 4 },
+
+  // Bottom Stats Row
+  statsRow: { flexDirection: "row", gap: 16, marginBottom: 16 },
+  statBoxSmall: { flex: 1, backgroundColor: "#18181B", borderRadius: 24, padding: 16, borderWidth: 1, borderColor: "#27272A" },
+
+  // Weekly Chart
+  weeklyCard: { backgroundColor: "#18181B", borderRadius: 24, padding: 20, borderWidth: 1, borderColor: "#27272A", marginBottom: 24 },
+  chartRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end", height: 80, marginTop: 16 },
+  chartCol: { alignItems: "center", gap: 8 },
+  chartBar: { width: 8, borderRadius: 4 },
+  chartText: { color: "#64748B", fontSize: 12, fontWeight: "600" },
+
+  // CTA Button
+  ctaBtn: { backgroundColor: "#F59E0B", paddingVertical: 20, borderRadius: 24, alignItems: "center", shadowColor: "#F59E0B", shadowOpacity: 0.3, shadowRadius: 15, shadowOffset: { width: 0, height: 8 } },
+  ctaText: { color: "#09090B", fontSize: 18, fontWeight: "800", letterSpacing: 0.5 },
+
+  // Bottom Nav
+  bottomNav: { position: "absolute", bottom: 0, left: 0, right: 0, height: 90, backgroundColor: "#09090B", flexDirection: "row", justifyContent: "space-around", alignItems: "center", paddingBottom: 20, borderTopWidth: 1, borderTopColor: "#18181B" },
+  navItem: { padding: 10 },
+  navItemCenter: { width: 56, height: 56, borderRadius: 28, backgroundColor: "#F59E0B", alignItems: "center", justifyContent: "center", marginTop: -20, shadowColor: "#F59E0B", shadowOpacity: 0.4, shadowRadius: 10, shadowOffset: { width: 0, height: 5 } },
 });
