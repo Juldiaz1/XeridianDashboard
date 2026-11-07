@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+﻿import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import {useVideoPlayer, VideoView} from 'expo-video';
@@ -21,11 +21,13 @@ import {
   TextInput,
 } from "react-native";
 import TrackerScreen from "./src/screens/TrackerScreen";
+import DashboardScreen from "./src/screens/DashboardScreen";
 
 type Mode = "login" | "signup";
 
 export default function App() {
-  const [signedIn, setSignedIn] = useState(false);
+  type Screen = "login" | "tracker" | "dashboard";
+  const [screen, setScreen] = useState<Screen>("login");
   const [mode, setMode] = useState<Mode>("login");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -59,7 +61,7 @@ export default function App() {
       }
     }
     // TODO: connect to your auth backend
-    setSignedIn(true);
+    setScreen("tracker");
   };
 
   const googleLogin = () => {
@@ -67,8 +69,12 @@ export default function App() {
     Alert.alert("Google login", "Google sign-in is not configured yet.");
   };
 
-  if (signedIn) {
-    return <TrackerScreen onBack={() => setSignedIn(false)} />;
+  if (screen === "tracker") {
+    return <TrackerScreen onBack={() => setScreen("login")} />;
+  }
+
+  if (screen === "dashboard") {
+    return <DashboardScreen onBack={() => setScreen("login")} />;
   }
 
   return (
@@ -153,7 +159,7 @@ export default function App() {
             </Pressable>
           </View>
 
-          <Pressable onPress={() => setSignedIn(true)}>
+          <Pressable onPress={() => setScreen("tracker")}>
             <Text style={styles.guestText}>Continue as Guest</Text>
           </Pressable>
 
@@ -235,6 +241,14 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textDecorationLine: "underline",
   },
+  dashboardText: {
+    color: "#a6ffff",
+    textAlign: "center",
+    marginTop: 12,
+    fontSize: 16,
+    fontWeight: "700",
+  },
   switchText: { color: "#ddd", textAlign: "center", marginTop: 20 },
   switchLink: { color: "#ff8a5c", fontWeight: "700" },
 });
+
