@@ -22,7 +22,7 @@ export default function DashboardScreen({ navigation }: any) {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={{ uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" }} style={styles.avatar} />
+            <Image source={require("./src/screens/images/Profile.jpg")} style={styles.avatar} />
             <View>
               <Text style={styles.greeting}>Welcome Back,</Text>
               <Text style={styles.name}>Alex Rivera</Text>
@@ -47,7 +47,7 @@ export default function DashboardScreen({ navigation }: any) {
             {/* Left Hero Card (Gym Photo + Graph) */}
             <View style={styles.heroImageCard}>
               <Image 
-                source={{ uri: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=600&auto=format&fit=crop" }} 
+                source={require("./src/screens/images/Hero.jpg")} 
                 style={styles.heroImage} 
               />
               {/* Overlay Graph */}
