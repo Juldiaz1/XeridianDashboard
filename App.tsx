@@ -201,7 +201,7 @@ function AnalyticsScreen() {
 
           <View style={styles.heroRow}>
             <View style={styles.heroImageCard}>
-              <Image source={require("./src/screens/images/Hero.jpg')} style={styles.heroImage} />
+              <Image source={require("./src/screens/images/Hero.jpg")} style={styles.heroImage} />
               <View style={styles.miniGraphContainer}>
                 <View style={styles.graphLine} />
                 <Text style={styles.graphText}>124 <Text style={styles.graphSub}>Reps</Text></Text>
