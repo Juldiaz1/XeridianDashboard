@@ -95,7 +95,7 @@ function HomeScreen({ navigation }: any) {
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ overflow: "visible" }} contentContainerStyle={{ gap: 16, paddingRight: 24 }}>
             {exercises.map((ex) => (
               <Pressable key={ex.id} style={styles.exerciseCard} onPress={() => setSelectedExercise(ex)}>
-                <Image source={{ uri: ex.image }} style={styles.exerciseImage} />
+                <Image source={ex.image} style={styles.exerciseImage} />
                 <View style={styles.exerciseInfo}>
                   <Text style={styles.exerciseName}>{ex.name}</Text>
                   <Text style={styles.exerciseTarget}>{ex.target}</Text>
@@ -118,7 +118,7 @@ function HomeScreen({ navigation }: any) {
               <Pressable onPress={() => setSelectedExercise(null)} style={styles.closeBtn}><Ionicons name="close" size={24} color="#fff" /></Pressable>
             </View>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
-              <Image source={{ uri: selectedExercise?.image }} style={styles.manualImage} />
+              <Image source={selectedExercise.image} style={styles.manualImage} />
               <Text style={styles.manualSectionTitle}>How to do it</Text>
               {selectedExercise?.steps.map((step: string, index: number) => (
                 <View key={index} style={styles.manualStepRow}>
@@ -275,7 +275,7 @@ function AnalyticsScreen() {
             {diagnostics.map((item) => (
               <View key={item.id} style={styles.diagnosticCard}>
                 <View style={styles.diagLeft}>
-                  <Image source={{ uri: item.image }} style={styles.diagImage} />
+                  <Image source={item.image} style={styles.diagImage} />
                   <View style={styles.diagTextContainer}>
                     <Text style={styles.diagName}>{item.name}</Text>
                     <Text style={styles.diagDate}>{item.date}</Text>
