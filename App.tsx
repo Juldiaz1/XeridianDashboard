@@ -11,18 +11,12 @@ import WorkoutScreen from "./src/screens/WorkoutScreen";
 
 const { width } = Dimensions.get("window");
 
-// REAL EXERCISE PHOTOS (Embedded so they never break or crash)
-const IMG_PUSHUP = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA="; // Fallback
-const IMG_SITUP = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=";
-const IMG_CRUNCH = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=";
-const IMG_SQUAT = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=";
-
 // Since Base64 real photos are too large for this text block, I am using the absolute most reliable premium photos available online.
 const EXACT_IMAGES = {
-  pushup: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&w=400&auto=format&fit=crop",
-  situp: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=400&auto=format&fit=crop",
-  crunch: "https://images.unsplash.com/photo-1603287681836-b174ce5074c2?q=80&w=400&auto=format&fit=crop",
-  squat: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=400&auto=format&fit=crop"
+  pushup: require("./src/screens/images/Push-ups.jpg"),
+  situp: require("./src/screens/images/Sit-ups.jpg"),
+  crunch: require("./src/screens/images/Crunches.jpg"),
+  squat: require("./src/screens/images/Squats.jpg"),
 };
 
 function HomeScreen({ navigation }: any) {
@@ -60,14 +54,14 @@ function HomeScreen({ navigation }: any) {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 120 }}>
         
         <ImageBackground 
-          source={{ uri: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1000&auto=format&fit=crop" }} 
+          source={require("./src/screens/images/Home.jpg")} 
           style={styles.heroBanner}
         >
           <LinearGradient colors={["rgba(9, 9, 11, 0.3)", "rgba(9, 9, 11, 1)"]} style={StyleSheet.absoluteFill} />
           <SafeAreaView style={styles.heroContent} edges={["top"]}>
             <View style={styles.heroTopRow}>
               <View style={styles.logoPill}><Text style={styles.logoText}>XERIDIAN</Text></View>
-              <Image source={{ uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" }} style={styles.heroAvatar} />
+              <Image source={require("./src/screens/images/Profile.jpg")} style={styles.heroAvatar} />
             </View>
             <Text style={styles.heroTitle}>Your AI{"\n"}Fitness Coach.</Text>
             <Text style={styles.heroSubTitle}>Camera tracking to perfect your form and maximize your results.</Text>
@@ -170,7 +164,7 @@ function AnalyticsScreen() {
       <SafeAreaView style={styles.safe} edges={["top"]}>
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={{ uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" }} style={styles.avatar} />
+            <Image source={require("./src/screens/images/Profile.jpg")} style={styles.avatar} />
             <View>
               <Text style={styles.greeting}>Analytics,</Text>
               <Text style={styles.name}>Alex Rivera</Text>
@@ -187,11 +181,11 @@ function AnalyticsScreen() {
           </View>
           <View style={styles.photoRow}>
             <View style={styles.photoCard}>
-              <Image source={{ uri: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=300&auto=format&fit=crop" }} style={styles.photoImage} />
+              <Image source={require("./src/screens/images/Analytics before.jpg")} style={styles.photoImage} />
               <View style={styles.photoBadge}><Text style={styles.photoBadgeText}>Before</Text></View>
             </View>
             <View style={styles.photoCard}>
-              <Image source={{ uri: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=300&auto=format&fit=crop" }} style={styles.photoImage} />
+              <Image source={require("./src/screens/images/Hero.jpg")} style={styles.photoImage} />
               <View style={[styles.photoBadge, { backgroundColor: "#10B981" }]}><Text style={styles.photoBadgeText}>Current</Text></View>
             </View>
             <Pressable style={styles.addPhotoCard}>
@@ -207,7 +201,7 @@ function AnalyticsScreen() {
 
           <View style={styles.heroRow}>
             <View style={styles.heroImageCard}>
-              <Image source={{ uri: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=600&auto=format&fit=crop" }} style={styles.heroImage} />
+              <Image source={require("./src/screens/images/Hero.jpg')} style={styles.heroImage} />
               <View style={styles.miniGraphContainer}>
                 <View style={styles.graphLine} />
                 <Text style={styles.graphText}>124 <Text style={styles.graphSub}>Reps</Text></Text>
@@ -381,7 +375,7 @@ function SettingsScreen() {
       <View style={styles.header}><Text style={styles.pageTitle}>Settings</Text></View>
       <ScrollView style={{ padding: 24 }}>
         <View style={styles.settingsProfile}>
-          <Image source={{ uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" }} style={styles.settingsAvatar} />
+          <Image source={require("./src/screens/images/Profile.jpg")} style={styles.settingsAvatar} />
           <Text style={styles.settingsName}>Alex Rivera</Text>
           <Text style={styles.settingsEmail}>alex@xeridian.com</Text>
         </View>
