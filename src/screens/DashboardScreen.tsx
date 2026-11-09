@@ -11,7 +11,7 @@ const ACCENT = "#C6FF00"; // just a temporary color replacement
 const recentDiagnostics = [
   { exercise: "Squats", date: "Today, 08:30 AM", score: 94},
   { exercise: "Push-Ups", date: "Yesterday", score: 88},
-  { exercise: "Planks", date: "3 days ago", score: 79},
+  { exercise: "Crunches", date: "3 days ago", score: 79},
 ];
 
 export default function DashboardScreen({ navigation }: any) {
