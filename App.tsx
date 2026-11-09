@@ -14,7 +14,7 @@ const { width } = Dimensions.get("window");
 // Since Base64 real photos are too large for this text block, I am using the absolute most reliable premium photos available online.
 const EXACT_IMAGES = {
   pushup: require("./src/screens/images/Push-ups.jpg"),
-  situp: require("./src/screens/images/Sit-ups.jpg"),
+  lunge: require("./src/screens/images/Lunges.jpg"),
   crunch: require("./src/screens/images/Crunches.jpg"),
   squat: require("./src/screens/images/Squats.jpg"),
 };
@@ -30,8 +30,8 @@ function HomeScreen({ navigation }: any) {
       tips: ["Don't let your hips sag.", "Keep your core tight.", "Breathe out as you push up."]
     },
     { 
-      id: "2", name: "Sit-ups", target: "Lower Abs", 
-      image: EXACT_IMAGES.situp, 
+      id: "2", name: "Lunges", target: "Lower Body", 
+      image: EXACT_IMAGES.lunge, 
       steps: ["Lie on your back, knees bent.", "Anchor your feet.", "Lift torso up to your knees.", "Lower back down with control."],
       tips: ["Avoid pulling on your neck.", "Keep movement smooth.", "Engage core throughout."]
     },
@@ -154,7 +154,7 @@ function AnalyticsScreen() {
 
   const [diagnostics] = useState([
     { id: "1", name: "Push-ups", date: "Today, 8:30 AM", score: 92, status: "Good", suggestion: "Keep chest up.", color: "#10B981", image: EXACT_IMAGES.pushup },
-    { id: "2", name: "Sit-ups", date: "Today, 8:15 AM", score: 75, status: "Needs Work", suggestion: "Go deeper in sit-up.", color: "#EF4444", image: EXACT_IMAGES.situp },
+    { id: "2", name: "Lunges", date: "Today, 8:15 AM", score: 75, status: "Needs Work", suggestion: "Lower your hips.", color: "#EF4444", image: EXACT_IMAGES.lunge },
     { id: "3", name: "Crunches", date: "Yesterday", score: 88, status: "Good", suggestion: "Slow down the negative.", color: "#10B981", image: EXACT_IMAGES.crunch },
     { id: "4", name: "Squats", date: "Oct 24, 2026", score: 95, status: "Excellent", suggestion: "Perfect form!", color: "#10B981", image: EXACT_IMAGES.squat },
   ]);
