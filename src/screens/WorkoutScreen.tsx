@@ -7,7 +7,7 @@ export default function WorkoutScreen({ route, navigation }: any) {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <Image source={{ uri: exercise.image }} style={styles.bgImage} blurRadius={10} />
+      <Image source={exercise.image} style={styles.bgImage} blurRadius={10} />
       <View style={styles.overlay} />
       
       <View style={styles.content}>
