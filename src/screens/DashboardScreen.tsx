@@ -11,7 +11,7 @@ const ACCENT = "#C6FF00"; // just a temporary color replacement
 const recentDiagnostics = [
   { exercise: "Squats", date: "Today, 08:30 AM", score: 94},
   { exercise: "Push-Ups", date: "Yesterday", score: 88},
-  { exercise: "Planks", date: "3 days ago", score: 79},
+  { exercise: "Crunches", date: "3 days ago", score: 79},
 ];
 
 export default function DashboardScreen({ navigation }: any) {
@@ -22,7 +22,7 @@ export default function DashboardScreen({ navigation }: any) {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Image source={{ uri: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=150&auto=format&fit=crop" }} style={styles.avatar} />
+            <Image source={require("./src/screens/images/Profile.jpg")} style={styles.avatar} />
             <View>
               <Text style={styles.greeting}>Welcome Back,</Text>
               <Text style={styles.name}>Alex Rivera</Text>
@@ -47,7 +47,7 @@ export default function DashboardScreen({ navigation }: any) {
             {/* Left Hero Card (Gym Photo + Graph) */}
             <View style={styles.heroImageCard}>
               <Image 
-                source={{ uri: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=600&auto=format&fit=crop" }} 
+                source={require("./src/screens/images/Hero.jpg")} 
                 style={styles.heroImage} 
               />
               {/* Overlay Graph */}
@@ -77,7 +77,7 @@ export default function DashboardScreen({ navigation }: any) {
                   <Ionicons name="fitness-outline" size={16} color="#64748B" />
                 </View>
                 <Text style={styles.statValue}>168.5 <Text style={styles.statUnit}>lbs</Text></Text>
-                <Text style={styles.statSub}><Text style={{color: "#10B981"}}>↓ 2.4 lbs</Text> this month</Text>
+                <Text style={styles.statSub}><Text style={{color: "#10B981"}}>v 2.4 lbs</Text> this month</Text>
               </View>
             </View>
           </View>
